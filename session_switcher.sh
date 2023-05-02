@@ -12,7 +12,7 @@ fi
 
 fzf_command=(fzf --margin=30% --reverse --header-first --header="Select Session" --border "--query=$1" "-1")
 session=$(
-  kitty @ ls | jq ".[] |  .tabs[0].windows[] | select(.title != \"$app_name\")" | jq -r '"\(.id):\t\(.title)\t\(.cwd)"' |
+  kitty @ --to=unix:@mykitty ls | jq ".[] |  .tabs[].windows[] | select(.title != \"$app_name\")" | jq -r '"\(.id):\t\(.title)\t\(.cwd)"' |
     "${fzf_command[@]}"
 )
 if [ -z "$session" ]; then
@@ -20,5 +20,5 @@ if [ -z "$session" ]; then
 else
   selected=$(echo "$session" | cut -d':' -f1)
   id="${selected//[^0-9]/}"
-  kitty @ focus-window -m id:"$id"
+  kitty @ --to=unix:@mykitty focus-window -m id:"$id"
 fi
