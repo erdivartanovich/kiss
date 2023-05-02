@@ -4,13 +4,13 @@
 ## written by @erdivartanovich
 ## email: erdi@monommania.com
 
-app_name="session_switcher.sh"
+app_name="kitty_session_switcher.sh"
 pcount=$(pgrep -fc "$app_name")
 if [ "$pcount" -gt 2 ]; then
   exit 0
 fi
 
-fzf_command=(fzf --margin=30% --reverse --header-first --header="Select Session" --border "--query=$1" "-1")
+fzf_command=(fzf --margin=3% --reverse --header-first --header="Select Session" "--query=$1" "-1")
 session=$(
   kitty @ --to=unix:@mykitty ls | jq ".[] |  .tabs[].windows[] | select(.title != \"$app_name\")" | jq -r '"\(.id):\t\(.title)\t\(.cwd)"' |
     "${fzf_command[@]}"
