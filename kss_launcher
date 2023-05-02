@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+kitty @ --to=unix:@mykitty focus-window &&
+    kitty @ --to=unix:@mykitty launch --type=os-window --os-window-class=kss kitty_session_switcher.sh
