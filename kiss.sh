@@ -4,7 +4,7 @@
 ## written by @erdivartanovich
 ## email: erdi@monommania.com
 
-app_name="kitty_session_switcher.sh"
+app_name="kiss.sh"
 conf_file="$HOME/.config/kitty/kitty_session_switcher.conf"
 
 _prevent_multiple_instance() {
@@ -56,7 +56,7 @@ _override_fzfopt_based_on_wm_width() {
 _execute() {
   fzf_command=(fzf "--query=$1" "-1")
   session=$(
-    kitty @ --to=unix:@mykitty ls | jq ".[] |  .tabs[].windows[] | select(.title != \"$app_name\")" | jq -r '"\(.id):\t\(.title)\t\(.cwd)"' |
+    kitty @ --to=unix:@kiss ls | jq ".[] |  .tabs[].windows[] | select(.title != \"$app_name\")" | jq -r '"\(.id):\t\(.title)\t\(.cwd)"' |
       "${fzf_command[@]}"
   )
   if [ -z "$session" ]; then
@@ -64,7 +64,7 @@ _execute() {
   else
     selected=$(echo "$session" | cut -d':' -f1)
     id="${selected//[^0-9]/}"
-    kitty @ --to=unix:@mykitty focus-window -m id:"$id"
+    kitty @ --to=unix:@kiss focus-window -m id:"$id"
   fi
 }
 
