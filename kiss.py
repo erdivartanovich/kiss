@@ -11,4 +11,4 @@ def main(args: List[str]) -> str:
 def handle_result(args: List[str], answer: str, target_window_id: int, boss: Boss) -> None:
     w = boss.active_window
     if w is not None:
-        boss.call_remote_control(w, ('launch', 'kiss.sh'))
+        boss.call_remote_control(w, ('launch', '--type=overlay', 'kiss.sh'))
